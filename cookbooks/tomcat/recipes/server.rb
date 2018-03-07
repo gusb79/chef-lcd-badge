@@ -51,8 +51,9 @@ end
 
 # I don't know if this recursive chown can be done with Chef resources
 %w( /opt/tomcat/webapps/ /opt/tomcat/work/ /opt/tomcat/temp/ /opt/tomcat/logs/).each do |dir|
-execute 'Recursive Chown' do
-  command "sudo chown -R #{node['server']['user']} #{dir}"
+  execute 'Recursive Chown' do
+    command "sudo chown -R #{node['server']['user']} #{dir}"
+  end
 end
 
 
