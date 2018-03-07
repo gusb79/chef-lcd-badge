@@ -1,11 +1,12 @@
 name 'tomcat'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
-license 'All Rights Reserved'
+maintainer 'Gustavo Benitez'
+maintainer_email 'gusb79@gmail.com'
+license 'Apache-2.0'
 description 'Installs/Configures tomcat'
 long_description 'Installs/Configures tomcat'
 version '1.0.0'
 chef_version '>= 12.1' if respond_to?(:chef_version)
+supports 'centos', '>=7'
 
 # The `issues_url` points to the location where issues for this cookbook are
 # tracked.  A `View Issues` link will be displayed on this cookbook's page when

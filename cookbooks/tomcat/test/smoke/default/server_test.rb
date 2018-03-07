@@ -5,14 +5,37 @@
 # The Inspec reference, with examples and extensive documentation, can be
 # found at http://inspec.io/docs/reference/resources/
 
-unless os.windows?
-  # This is an example test, replace with your own test.
-  describe user('root'), :skip do
-    it { should exist }
-  end
+describe package('java-1.7.0-openjdk-devel') do
+  it { should be_installed }
 end
 
-# This is an example test, replace it with your own test.
-describe port(80), :skip do
-  it { should_not be_listening }
+describe user('tomcat') do
+  it { should exist }
+end
+
+describe group('tomcat') do
+  it { should exist }
+end
+
+describe directory('/opt/tomcat') do
+  it { should exist }
+  its('mode') { should eq '0770' }
+end
+
+describe file('/etc/systemd/system/tomcat.service') do
+  it { should exist }
+  its(:contents) { should match('/CATALINA/')}
+end
+
+describe service('tomcat') do
+  it {  should be_enabled }
+  it {  should be_running }
+end
+
+describe port('8080') do
+  it { should be_listening }
+end
+
+describe command('curl http://localhost:8080/') do
+  its(:stdout) { should match(/Tomcat/) }
 end

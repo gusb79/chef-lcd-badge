@@ -27,10 +27,3 @@ suites:
       inspec_tests:
         - test/smoke/default
     attributes:
-  - name: server
-    run_list:
-      - recipe[tomcat::server]
-    verifier:
-      inspec_tests:
-        - test/smoke/default
-    attributes:

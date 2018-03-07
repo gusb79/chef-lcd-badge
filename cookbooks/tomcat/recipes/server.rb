@@ -3,8 +3,8 @@
 # Recipe:: server
 #
 # Copyright:: 2018, The Authors, All Rights Reserved.
-node['server']['user'] = 'tomcat'
-node['server']['group'] = 'tomcat'
+default['server']['user'] = 'tomcat'
+default['server']['group'] = 'tomcat'
 
 package 'java-1.7.0-openjdk-devel'
 
@@ -78,6 +78,6 @@ template 'server.xml' do
   owner node['server']['user']
   group node['server']['group']
   path '/opt/tomcat/conf/server.xml'
-  variables ( tomcatPort: node['server']['tomcat-port'])
+  variables(tomcatPort: node['server']['tomcat-port'])
   notifies :reload, 'service[tomcat]', :immediately
 end
