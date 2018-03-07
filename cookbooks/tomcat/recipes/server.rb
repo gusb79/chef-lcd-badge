@@ -31,7 +31,7 @@ end
 remote_file 'Tomcat Binaries' do
   source 'http://mirror.ox.ac.uk/sites/rsync.apache.org/tomcat/tomcat-8/v8.5.28/bin/apache-tomcat-8.5.28.tar.gz'
   path '/opt/tomcat/apache-tomcat-8.5.28.tar.gz'
-  not_if { ::File.exist?('/opt/tomcat/conf') }
+  not_if { ::File.exist?('/opt/tomcat/apache-tomcat-8.5.28.tar.gz') }
   notifies :run, 'execute[untar]', :immediately
 end
 
