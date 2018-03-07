@@ -5,6 +5,7 @@ driver:
   socket: npipe:////./pipe/docker_engine
   use_sudo: false
   privileged: true
+  cap-add: SYS_ADMIN
 
 provisioner:
   name: chef_zero
