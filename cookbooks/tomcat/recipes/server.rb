@@ -66,14 +66,11 @@ template 'tomcat.service' do
   source 'tomcat.service.erb'
   path '/etc/systemd/system/tomcat.service'
   action [:create_if_missing]
-  # Does not work with Docker
-  notifies :run, 'execute[daemon-reload]', :immediately
 end
 
 # Does not work in Docker
 execute 'daemon-reload' do
   command 'sudo systemctl daemon-reload'
-  action :nothing
 end
 
 service 'tomcat' do
