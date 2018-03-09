@@ -65,12 +65,22 @@ end
 template 'tomcat.service' do
   source 'tomcat.service.erb'
   path '/etc/systemd/system/tomcat.service'
-  action [:create_if_missing]
 end
 
 # Does not work in Docker
-execute 'daemon-reload' do
-  command 'sudo systemctl daemon-reload'
+# Checked the running docker container with
+#  docker ps
+# Get the container ID
+#  docker container exec -ti <ContainerID> "/bin/bash"
+#execute 'daemon-reload' do
+#  command 'systemctl daemon-reload'
+#end
+
+# Use specific Dockerfile with Test Kitchen 
+# https://github.com/moby/moby/issues/28614
+#
+execute 'Add the Tomcat Service' do
+  command 'chkconfig --add tomcat'
 end
 
 service 'tomcat' do
