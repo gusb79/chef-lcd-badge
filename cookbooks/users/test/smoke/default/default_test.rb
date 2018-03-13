@@ -1,0 +1,20 @@
+# # encoding: utf-8
+
+# Inspec test for recipe users::default
+
+# The Inspec reference, with examples and extensive documentation, can be
+# found at http://inspec.io/docs/reference/resources/
+
+describe user('chef') do
+  it { should exist }
+  its('password') { should eq 'chef' }
+end
+
+describe file('/etc/ssh/sshd_config') do
+  it { should exist }
+end
+
+describe service('sshd') do
+  it { should be_enabled }
+  it { should be_running }
+end
