@@ -3,7 +3,7 @@
 #
 # Copyright:: 2018, The Authors, All Rights Reserved.
 user 'chef' do
-  password 'chef'
+  password '$1$NPyYnO0C$XcN7DHsGyREp6ln5Jy4101'
 end
 
 service 'sshd' do
