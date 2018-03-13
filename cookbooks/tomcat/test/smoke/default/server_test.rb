@@ -1,4 +1,4 @@
-# # encoding: utf-8
+# encoding: utf-8
 
 # Inspec test for recipe tomcat::server
 
@@ -17,14 +17,14 @@ describe group('tomcat') do
   it { should exist }
 end
 
-describe directory('/opt/tomcat') do
+describe directory('/opt/tomcat/conf') do
   it { should exist }
-  its('mode') { should eq '0770' }
+  its('mode') { should cmp '0770' }
 end
 
 describe file('/etc/systemd/system/tomcat.service') do
   it { should exist }
-  its(:contents) { should match('/CATALINA/')}
+  its(:content) { should match /CATALINA/ }
 end
 
 describe service('tomcat') do

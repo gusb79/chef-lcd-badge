@@ -29,14 +29,11 @@ execute 'untar' do
 end
 
 remote_file 'Tomcat Binaries' do
-  source 'http://mirror.ox.ac.uk/sites/rsync.apache.org/tomcat/tomcat-8/v8.5.28/bin/apache-tomcat-8.5.28.tar.gz'
+  source 'http://mirror.ox.ac.uk/sites/rsync.apache.org/tomcat/tomcat-8/v8.5.29/bin/apache-tomcat-8.5.29.tar.gz'
   path '/opt/tomcat/apache-tomcat-8.5.28.tar.gz'
   not_if { ::File.exist?('/opt/tomcat/apache-tomcat-8.5.28.tar.gz') }
   notifies :run, 'execute[untar]', :immediately
 end
-
-
-
 
 directory '/opt/tomcat/conf' do
   owner node['server']['user']
@@ -45,9 +42,9 @@ directory '/opt/tomcat/conf' do
 end
 
 # I don't know if this recursive chown can be done with Chef resources
-execute 'Recursive Chgrp' do
-  command "sudo chgrp -R tomcat /opt/tomcat/conf/"
-end
+#execute 'Recursive Chgrp' do
+#  command "sudo chgrp -R tomcat /opt/tomcat/"
+#end
 
 # I don't know how to apply a single command to all the files in the same directory
 execute 'Config Files Chown' do
@@ -55,44 +52,31 @@ execute 'Config Files Chown' do
 end
 
 # I don't know if this recursive chown can be done with Chef resources
-%w( /opt/tomcat/webapps/ /opt/tomcat/work/ /opt/tomcat/temp/ /opt/tomcat/logs/).each do |dir|
-  execute 'Recursive Chown' do
-    command "sudo chown -R #{node['server']['user']} #{dir}"
-  end
+# %w( /opt/tomcat/webapps/ /opt/tomcat/work/ /opt/tomcat/temp/ /opt/tomcat/logs/).each do |dir|
+execute 'Recursive Chown' do
+  command "sudo chown -R #{node['server']['user']}:#{node['server']['group']} /opt/tomcat"
 end
+# end
 
-
-template 'tomcat.service' do
+template 'tomcat.service.erb' do
   source 'tomcat.service.erb'
   path '/etc/systemd/system/tomcat.service'
 end
 
-# Does not work in Docker
-# Checked the running docker container with
-#  docker ps
-# Get the container ID
-#  docker container exec -ti <ContainerID> "/bin/bash"
-#execute 'daemon-reload' do
-#  command 'systemctl daemon-reload'
-#end
-
-# Use specific Dockerfile with Test Kitchen 
-# https://github.com/moby/moby/issues/28614
-#
-execute 'Add the Tomcat Service' do
-  command 'chkconfig --add tomcat'
+execute 'daemon-reload' do
+  command 'systemctl daemon-reload'
 end
 
 service 'tomcat' do
   action [ :enable, :start ]
 end
 
-template 'server.xml' do
-  source 'service.xml.erb'
+template 'server.xml.erb' do
+  source 'server.xml.erb'
   mode '0750'
   owner node['server']['user']
   group node['server']['group']
   path '/opt/tomcat/conf/server.xml'
   variables(tomcatPort: node['server']['tomcat-port'])
-  notifies :reload, 'service[tomcat]', :immediately
+  notifies :restart, 'service[tomcat]', :immediately
 end
