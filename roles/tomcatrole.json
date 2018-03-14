@@ -1,0 +1,12 @@
+{
+  "name": "tomcatrole",
+  "override_attributes": {
+    "server": {
+      "tomcat-port": "8181"
+    }
+  },
+  "run_list": [
+    "role[base]",
+    "recipe[tomcat]"
+  ]
+}
