@@ -1,0 +1,7 @@
+{
+  "name": "Production",
+  "description": "Production Environment",
+  "cookbook_versions": {
+    "tomcat": "= 1.0.0"
+  }
+}
