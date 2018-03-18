@@ -1,0 +1,9 @@
+{
+  "name": "users",
+  "override_attributes": {
+  },
+  "run_list": [
+    "role[base]",
+    "recipe[users]"
+  ]
+}

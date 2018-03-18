@@ -41,10 +41,10 @@ backend static
 
 backend app
     balance     roundrobin
-<%
+<%=
 search(:node, 'recipe:apache',
   :filter_result => { 'name' => [ 'name' ],
-                      'ip' => [ 'ipaddress' ]
+                      'ip' => [ 'ipaddress' ],
                       'port' => ['apache'] ['port']
                     }
       ).each do |result|

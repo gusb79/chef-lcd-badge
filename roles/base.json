@@ -1,6 +1,10 @@
 {
   "name": "base",
+  "override_attributes": {
+    "node" : { "chef-client" : { "interval" : "300"}}
+  },
   "run_list": [
+    "recipe[my_ntp]",
     "recipe[my_chef_client]",
     "recipe[users]"
   ]

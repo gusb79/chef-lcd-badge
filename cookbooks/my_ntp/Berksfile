@@ -2,5 +2,3 @@
 source 'https://supermarket.chef.io'
 
 metadata
-
-cookbook 'apache', '>= 0.1.0', path: '../apache'
