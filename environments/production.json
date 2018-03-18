@@ -1,14 +1,7 @@
 {
-    "name": "Production",
-    "description": "Production Environment",
-    "chef_type": "environment",
-    "json_class": "Chef::Environment",
-    "default_attributes": {
-    },
-    "override_attributes": {
-      "node" : { "chef-client" : { "interval" : "300"}}
-    },
-    "cookbook_versions": {
-        "tomcat": "= 1.0.0"
-    }
+  "name": "Production",
+  "description": "Production Environment",
+  "cookbook_versions": {
+    "tomcat": "= 1.0.0"
+  }
 }
