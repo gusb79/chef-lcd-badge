@@ -6,9 +6,6 @@
 
 # ERROR: Node attributes are read-only when you do not specify which precedence
 # level to set. To set an attribute use code like `node.default["key"] = "value"'
-node.default['server']['user'] = 'tomcat'
-node.default['server']['group'] = 'tomcat'
-
 package 'java-1.7.0-openjdk-devel'
 
 group node['server']['group']
@@ -28,8 +25,10 @@ execute 'untar' do
   action :nothing
 end
 
+# The link changes very KerberosGetAFSToken
+# How could I get the latest ?
 remote_file 'Tomcat Binaries' do
-  source 'http://mirror.ox.ac.uk/sites/rsync.apache.org/tomcat/tomcat-8/v8.5.29/bin/apache-tomcat-8.5.29.tar.gz'
+  source 'http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.29/bin/apache-tomcat-8.5.29.tar.gz'
   path '/opt/tomcat/apache-tomcat-8.5.28.tar.gz'
   not_if { ::File.exist?('/opt/tomcat/apache-tomcat-8.5.28.tar.gz') }
   notifies :run, 'execute[untar]', :immediately
