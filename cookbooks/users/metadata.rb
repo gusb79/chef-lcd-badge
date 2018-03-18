@@ -6,7 +6,7 @@ description 'Installs/Configures users'
 long_description 'Installs/Configures users'
 version '1.0.0'
 chef_version '>= 12.1' if respond_to?(:chef_version)
-supports 'centos', '>=7'
+supports 'centos', '>= 7.0'
 # The `issues_url` points to the location where issues for this cookbook are
 # tracked.  A `View Issues` link will be displayed on this cookbook's page when
 # uploaded to a Supermarket.
