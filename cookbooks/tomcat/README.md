@@ -1,4 +1,3 @@
-# tomcat
+# Recipe for tomcat installations
 
-TODO: Enter the cookbook description here.
-
+Install tomcat and configure admin user and webUIs

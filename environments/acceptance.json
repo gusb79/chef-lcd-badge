@@ -9,6 +9,6 @@
       "node" : { "chef-client" : { "interval" : "300"}}
     },
     "cookbook_versions": {
-        "tomcat": "= 1.1.0"
+        "tomcat": "= 1.2.0"
     }
 }
