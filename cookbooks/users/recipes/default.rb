@@ -11,13 +11,14 @@ else
   ::File.delete('/tmp/usersallowed')
 end
 
-
+# Alternatively:
+# search("groups", "*:*") do |group|
 data_bag('groups').map do |group|
   group data_bag_item('groups', group)['id'] do
     gid data_bag_item('groups', group)['gid']
     members data_bag_item('groups', group)['members']
 
-    if ::File.exist?('/tmp/usersallowed') do
+    if ::File.exist?('/tmp/usersallowed')
       action :create
     else
       action :delete
@@ -26,6 +27,9 @@ data_bag('groups').map do |group|
   end
 end
 
+
+# Alternatively:
+# search("users", "*:*") do |user|
 data_bag('users').map do |user|
   user data_bag_item('users', user)['id'] do
     comment data_bag_item('users', user)['comment']
@@ -34,7 +38,7 @@ data_bag('users').map do |user|
     home data_bag_item('users', user)['home']
     shell data_bag_item('users', user)['shell']
 
-    if ::File.exist?('/tmp/usersallowed') do
+    if ::File.exist?('/tmp/usersallowed')
       action :create
     else
       action :delete
